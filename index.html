@@ -44,7 +44,7 @@
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">반갑습니다, 목사님!</h2>
                 <p class="text-gray-600 max-w-xl mx-auto leading-relaxed">
                     오늘은 복잡한 설명 대신, 직접 손으로 익히는 시간입니다. <br>
-                    성도님들의 마음을 만지는 문자부터 깊이 있는 설교 연구까지, AI 비서와 함께 시작해보세요.
+                    성도님들의 마음을 만지는 문자부터 설교 연구, 그리고 예배용 PPT 자동 제작까지 AI 동역자와 함께 시작해보세요.
                 </p>
             </div>
 
@@ -55,7 +55,7 @@
                         <canvas id="energyChart"></canvas>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center space-y-4">
+                <div class="flex flex-col justify-center space-y-3">
                     <div class="p-4 highlight-box rounded-r-xl">
                         <p class="font-bold text-indigo-900">Step 1. 따뜻한 소통</p>
                         <p class="text-sm text-indigo-700">새가족과 아픈 성도님을 위한 맞춤 문자 작성</p>
@@ -67,6 +67,10 @@
                     <div class="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl">
                         <p class="font-bold text-amber-900">Step 3. 설교의 살 붙이기</p>
                         <p class="text-sm text-amber-700">우리 성도님들 눈높이에 맞는 예화 도출</p>
+                    </div>
+                    <div class="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-xl">
+                        <p class="font-bold text-purple-900">Step 4. 미디어 시각화</p>
+                        <p class="text-sm text-purple-700">디자인 테마를 설정하여 예배용 PPT 자동 생성</p>
                     </div>
                 </div>
             </div>
@@ -183,6 +187,61 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Practical 4: PPT/Slides (NEW) -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="bg-purple-600 text-white px-2 py-1 rounded text-xs">실습 4</span>
+                    <h3 class="font-bold text-xl">예배용 PPT 및 슬라이드 자동 생성</h3>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 font-sans">
+                    <p class="text-sm font-bold text-gray-700 mb-4">원하는 디자인 스타일을 설정해 보세요:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs text-gray-500 mb-1">PPT 제작용 설교 제목 및 요약</label>
+                            <input type="text" id="s4-topic" value="은혜의 예배를 딛고, 세상의 산 아래로 내려가 버티기" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">디자인 색상 테마</label>
+                            <select id="s4-theme" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
+                                <option value="신뢰감을 주는 깊은 청색(Navy)과 백색" selected>깊은 청색(Navy)과 백색</option>
+                                <option value="따뜻하고 은혜로운 세이지 그린과 부드러운 오프화이트">세이지 그린과 오프화이트</option>
+                                <option value="엄숙하고 전통적인 분위기의 차콜과 다크 버건디">차콜과 다크 버건디</option>
+                                <option value="현대적이고 깨끗한 느낌의 미니멀 블랙 앤 화이트">미니멀 블랙 앤 화이트</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">디자인 폰트 스타일</label>
+                            <select id="s4-font" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
+                                <option value="가독성이 극대화된 굵은 고딕(San-Serif) 계열" selected>가독성이 높은 고딕 계열</option>
+                                <option value="전통적이고 경건한 정통 명조(Serif) 계열">우아하고 경건한 명조 계열</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">슬라이드 구성 장수</label>
+                            <select id="s4-slides" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
+                                <option value="5장 내외 (핵심 요약 구성)">5장 내외 (핵심형)</option>
+                                <option value="7장 내외 (3대지 설교 전체 흐름)" selected>7장 내외 (표준형)</option>
+                                <option value="10장 내외 (상세 설명 및 성구 포함)">10장 내외 (상세형)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">원하는 출력 형식</label>
+                            <select id="s4-format" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
+                                <option value="PowerPoint VBA 코드" selected>PowerPoint VBA 코드 (1초 생성용)</option>
+                                <option value="Google Apps Script 코드">Google Slides용 Apps Script</option>
+                                <option value="슬라이드별 텍스트 및 디자인 상세 가이드북">구조화된 텍스트 가이드</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="prompt-area" id="prompt-4">
+                        <button onclick="copyToClipboard('prompt-4')" class="absolute top-2 right-2 bg-gray-700 hover:bg-purple-600 text-white text-xs px-2 py-1 rounded transition-colors">복사하기</button>
+                        <div id="p4-text" class="text-sm whitespace-pre-wrap"></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -245,6 +304,31 @@
 1. 감동적인 서론과 3대지 아웃라인을 짜줘.
 2. 각 대지마다 성도들이 삶에서 실천할 질문을 넣어줘.
 3. 한국적 정서가 담긴 따뜻한 일상 예화 한 가지를 창작해줘.`;
+
+            // S4: PPT/Slides (NEW)
+            const s4Topic = document.getElementById('s4-topic').value;
+            const s4Theme = document.getElementById('s4-theme').value;
+            const s4Font = document.getElementById('s4-font').value;
+            const s4Slides = document.getElementById('s4-slides').value;
+            const s4Format = document.getElementById('s4-format').value;
+
+            document.getElementById('p4-text').innerText = 
+`[역할] 너는 가독성이 뛰어나고 은혜로운 성전 슬라이드를 디자인하는 전문 예배 미디어 디자이너야.
+[목적] 목사님의 설교 구조와 아래 설정에 정확히 일치하는 [${s4Format}]을(를) 작성해서 설교 PPT 제작 시간을 완전히 단축시켜줘.
+
+[데이터 및 본문 정보]
+- 설교 본문: ${s2PassageVal}
+- 설교 주제 및 메시지: ${s4Topic}
+
+[디자인 템플릿 설정]
+- 색상 테마: ${s4Theme} (배경색과 글자색 매칭을 명확하게 지정해줘)
+- 폰트 조합: ${s4Font} (가장 잘 어울리는 기본 시스템 폰트로 매칭)
+- 분량: 총 ${s4Slides}
+
+[요청 요건]
+1. 각 슬라이드의 레이아웃(제목 슬라이드, 핵심 성구, 대지 요약, 결단 등)을 명확하게 구성해줘.
+2. 한 화면에 들어오는 텍스트는 3줄(혹은 핵심 어구 20단어) 이하로 줄여 성도들이 한눈에 볼 수 있는 가독성을 확보해줘.
+3. 만약 출력 형식이 'VBA' 또는 'Apps Script'라면, 코드를 그대로 복사해서 붙여넣었을 때 에러 없이 작동하고 지정한 색상 테마의 배경과 텍스트 상자가 자동으로 배치되는 완전한 실행 코드를 한눈에 알아보기 쉽게 작성해줘. 코드 말미에 실행하는 방법 가이드도 한 줄로 요약해줘.`;
         }
 
         // Clipboard Logic
@@ -270,10 +354,10 @@
             chartInstance = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['소통 실습', '본문 연구', '설교 설계', '마무리'],
+                    labels: ['소통 실습', '본문 연구', '설교 설계', 'PPT 시각화'],
                     datasets: [{
-                        data: [30, 30, 30, 10],
-                        backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#94a3b8'],
+                        data: [25, 25, 25, 25],
+                        backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#8b5cf6'],
                         borderWidth: 0,
                         hoverOffset: 15
                     }]
