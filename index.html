@@ -3,381 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 목회 실습 연구소 - 2주차</title>
+    <title>AI 목회자 워크숍 - 실습 가이드 대시보드</title>
+    <!-- Tailwind CSS (무료 CDN 연동으로 별도 파일 없이 예쁜 디자인 구현) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8f9fa; color: #212529; }
-        .prompt-area { background-color: #1a1c1e; color: #d1d5db; font-family: 'Courier New', monospace; border-radius: 0.75rem; padding: 1.25rem; position: relative; line-height: 1.6; }
-        .input-focus:focus { outline: none; border-color: #4f46e5; ring: 2px; ring-color: #c7d2fe; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .active-tab { background-color: #4f46e5 !important; color: white !important; }
-        .chart-container { position: relative; width: 100%; max-width: 350px; margin: auto; height: 300px; }
-        .highlight-box { border-left: 4px solid #4f46e5; background-color: #eef2ff; }
+        body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; }
     </style>
 </head>
-<body class="pb-12">
+<body class="bg-gray-50 text-gray-800">
 
-    <!-- Header -->
-    <header class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
-                <h1 class="text-lg font-bold text-gray-800">2주차 AI 목회 실습</h1>
-            </div>
-            <nav class="flex gap-1">
-                <button onclick="showTab('home')" id="btn-home" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 active-tab">홈</button>
-                <button onclick="showTab('method')" id="btn-method" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100">설교법</button>
-                <button onclick="showTab('studio')" id="btn-studio" class="tab-btn px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100">실습실</button>
-            </nav>
-        </div>
+    <!-- 상단 헤더 -->
+    <header class="bg-indigo-600 text-white py-8 px-4 shadow-md text-center">
+        <h1 class="text-3xl font-bold mb-2">AI 활용 교회 웹사이트 제작 워크숍</h1>
+        <p class="text-indigo-100 text-lg">코딩을 몰라도, 비용 0원으로 자립하는 교회 홈페이지 구축 전략</p>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 mt-8">
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="max-w-4xl mx-auto my-10 px-4">
+        
+        <!-- 안내문구 -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded shadow-sm">
+            <p class="text-blue-700 font-medium">💡 목사님들을 위한 실습 방법</p>
+            <p class="text-gray-600 text-sm mt-1">아래의 단계별 실습 프롬프트 상자에서 <strong>[프롬프트 복사하기]</strong> 버튼을 누르신 후, 클로드(Claude) 채팅창에 <code>Ctrl + V</code>로 붙여넣어 실습을 진행해 주세요. 모든 과정은 100% 무료 계정 기준입니다.</p>
+        </div>
 
-        <!-- TAB: HOME -->
-        <section id="home" class="tab-content active space-y-8">
-            <div class="text-center py-10">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">반갑습니다, 목사님!</h2>
-                <p class="text-gray-600 max-w-xl mx-auto leading-relaxed">
-                    오늘은 복잡한 설명 대신, 직접 손으로 익히는 시간입니다. <br>
-                    성도님들의 마음을 만지는 문자부터 설교 연구, 그리고 예배용 PPT 자동 제작까지 AI 동역자와 함께 시작해보세요.
-                </p>
+        <!-- 1단계 섹션 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-indigo-700">📌 [1단계] Claude로 홈페이지 기본 뼈대 만들기</h2>
+                <button onclick="copyPrompt('prompt1', this)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded transition-colors shadow">
+                    프롬프트 복사하기
+                </button>
             </div>
+            <p class="text-gray-600 text-sm mb-3">AI 비서에게 우리 교회의 예쁜 간판(메인 레이아웃)을 짜달라고 주문하는 텍스트입니다.</p>
+            <textarea id="prompt1" class="w-full h-48 p-4 bg-gray-900 text-green-400 font-mono text-sm rounded border border-gray-700 focus:outline-none" readonly>행정 전산화와 성도 소통을 위한 우리 교회의 공식 웹사이트를 제작하려고 합니다. 
+코딩을 모르는 목회자도 쉽게 관리할 수 있도록 아래 조건에 맞추어 [HTML, CSS, JavaScript가 한 파일로 통합된 완성형 코드]를 짜주세요.
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-4 text-center">📊 오늘의 실습 에너지 배분</h3>
-                    <div class="chart-container">
-                        <canvas id="energyChart"></canvas>
-                    </div>
-                </div>
-                <div class="flex flex-col justify-center space-y-3">
-                    <div class="p-4 highlight-box rounded-r-xl">
-                        <p class="font-bold text-indigo-900">Step 1. 따뜻한 소통</p>
-                        <p class="text-sm text-indigo-700">새가족과 아픈 성도님을 위한 맞춤 문자 작성</p>
-                    </div>
-                    <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-xl">
-                        <p class="font-bold text-emerald-900">Step 2. 본문 깊이 파기</p>
-                        <p class="text-sm text-emerald-700">배경 주해와 원어의 의미 탐구</p>
-                    </div>
-                    <div class="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl">
-                        <p class="font-bold text-amber-900">Step 3. 설교의 살 붙이기</p>
-                        <p class="text-sm text-amber-700">우리 성도님들 눈높이에 맞는 예화 도출</p>
-                    </div>
-                    <div class="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-xl">
-                        <p class="font-bold text-purple-900">Step 4. 미디어 시각화</p>
-                        <p class="text-sm text-purple-700">디자인 테마를 설정하여 예배용 PPT 자동 생성</p>
-                    </div>
-                </div>
-            </div>
+[디자인 요구사항]
+1. 전체적으로 따뜻하고, 평안하며 신뢰감을 주는 모던한 디자인 (예: 미보색 계열의 깔끔한 배경, 가독성 높은 폰트 세팅)
+2. 스마트폰(모바일)화면에서도 글씨가 깨지지 않고 완벽하게 정렬되는 반응형 레이아웃
+
+[필수 메뉴 및 섹션 구성]
+1. 상단 타이틀: 교회 이름과 따뜻한 환영 문구
+2. 예배 안내 섹션: 주일 대예배(오전 11:00), 수요기도회(오후 7:30) 등을 담은 깔끔한 시간표 테이블
+3. 소식 및 링크 섹션: 
+   - [이번 주 주보 보기] 버튼
+   - [온라인 기도제목 제출] 버튼
+   - [설교 영상 시청하기] 버튼
+4. 하단(Footer): 교회 주소 및 찾아오시는 길 안내 텍스트
+
+※ 중요: 목사님들이 브라우저에서 바로 확인할 수 있도록 코드 우측의 [Preview(미리보기)] 창에 화면이 완벽히 나타나게 컴포넌트를 빌드해 주시고, 코드 주석으로 글자 수정 방법을 친절하게 적어주세요. 생략(// 기존 코드 동일) 없이 전체 코드를 다 적어주어야 합니다.</textarea>
         </section>
 
-        <!-- TAB: METHOD -->
-        <section id="method" class="tab-content space-y-6">
-            <div class="bg-indigo-900 text-white p-8 rounded-3xl">
-                <h2 class="text-2xl font-bold mb-2">실패 없는 AI 설교 협업 4단계</h2>
-                <p class="text-indigo-200 text-sm">기계가 대신 쓰는 설교가 아니라, 기계의 도움으로 목사님이 완성하는 설교입니다.</p>
+        <!-- 2단계 섹션 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-indigo-700">📌 [2단계] 외부 무료 행정 서비스 링크 연동하기</h2>
+                <button onclick="copyPrompt('prompt2', this)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded transition-colors shadow">
+                    프롬프트 복사하기
+                </button>
             </div>
+            <p class="text-gray-600 text-sm mb-3">완성된 홈페이지에 주보(밴드), 기도제목(구글폼), 설교(유튜브) 링크를 연결하는 텍스트입니다.</p>
+            <textarea id="prompt2" class="w-full h-48 p-4 bg-gray-900 text-green-400 font-mono text-sm rounded border border-gray-700 focus:outline-none" readonly>앞서 만든 교회 홈페이지 코드에 우리 교회의 실제 관리 및 행정 링크들을 연결하고 싶습니다. 
+아래 3가지 실제 주소를 각 버튼에 정확히 매칭하여 코드를 최종 수정해 주세요.
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white p-5 rounded-xl border hover:shadow-md transition-shadow text-center">
-                    <div class="text-3xl mb-2">📖</div>
-                    <h4 class="font-bold mb-1">1. 성경 먼저 (BBB)</h4>
-                    <p class="text-xs text-gray-500">AI를 켜기 전, 기도로 본문을 먼저 묵상하고 '한 줄 주제'를 정하세요.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border hover:shadow-md transition-shadow text-center">
-                    <div class="text-3xl mb-2">🛡️</div>
-                    <h4 class="font-bold mb-1">2. 신학적 울타리</h4>
-                    <p class="text-xs text-gray-500">"개혁주의 신학"임을 AI에게 명시하여 엉뚱한 해석을 차단하세요.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border hover:shadow-md transition-shadow text-center">
-                    <div class="text-3xl mb-2">👥</div>
-                    <h4 class="font-bold mb-1">3. 청중 가르치기</h4>
-                    <p class="text-xs text-gray-500">우리 성도님들의 연령과 최근의 고민을 AI에게 알려주세요.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border hover:shadow-md transition-shadow text-center">
-                    <div class="text-3xl mb-2">✍️</div>
-                    <h4 class="font-bold mb-1">4. 눈물로 다듬기</h4>
-                    <p class="text-xs text-gray-500">AI가 준 초안에 목사님만 아시는 성도의 사정을 섞으세요.</p>
-                </div>
-            </div>
+[연동할 외부 무료 링크 주소]
+1. [이번 주 주보 보기] 버튼 클릭 시 이동할 주소:
+   👉 여기에 목사님 교회의 '네이버 밴드 주소' 또는 '카카오톡 채널 주소'를 넣으세요
+
+2. [온라인 기도제목 제출] 버튼 클릭 시 이동할 주소:
+   👉 여기에 목사님 교회의 '구글 폼(Google Forms) 주소'를 넣으세요
+
+3. [설교 영상 시청하기] 버튼 클릭 시 이동할 주소:
+   👉 여기에 목사님 교회의 '유튜브 채널 주소'를 넣으세요
+
+수정할 때 기존의 예쁜 디자인과 레이아웃이 절대 깨지지 않도록 유지해 주고, 변경이 완료되면 제가 복사해서 덮어쓸 수 있도록 축약 없이 전체 코드를 다시 출력해 주세요.</textarea>
         </section>
 
-        <!-- TAB: STUDIO -->
-        <section id="studio" class="tab-content space-y-10">
-            <!-- Practical 1: Communication -->
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <span class="bg-indigo-600 text-white px-2 py-1 rounded text-xs">실습 1</span>
-                    <h3 class="font-bold text-xl">성도 소통 (카톡/문자)</h3>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <p class="text-sm font-bold text-gray-700 mb-4">입력창에 내용을 채워보세요:</p>
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">성도 이름</label>
-                            <input type="text" id="s1-name" value="김민수 성도님" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">교회 이름</label>
-                            <input type="text" id="s1-church" value="소망교회" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-xs text-gray-500 mb-1">상황 (예: 수술 후 입원, 취업 준비 등)</label>
-                            <input type="text" id="s1-context" value="새 직장에 이직하여 적응 중" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                    </div>
-
-                    <div class="prompt-area" id="prompt-1">
-                        <button onclick="copyToClipboard('prompt-1')" class="absolute top-2 right-2 bg-gray-700 hover:bg-indigo-600 text-white text-xs px-2 py-1 rounded transition-colors">복사하기</button>
-                        <div id="p1-text" class="text-sm whitespace-pre-wrap"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Practical 2: Research -->
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <span class="bg-emerald-600 text-white px-2 py-1 rounded text-xs">실습 2</span>
-                    <h3 class="font-bold text-xl">본문 배경 연구 (주해)</h3>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="col-span-2">
-                            <label class="block text-xs text-gray-500 mb-1">성경 본문 (장, 절)</label>
-                            <input type="text" id="s2-passage" value="누가복음 9:28-36" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                    </div>
-
-                    <div class="prompt-area" id="prompt-2">
-                        <button onclick="copyToClipboard('prompt-2')" class="absolute top-2 right-2 bg-gray-700 hover:bg-emerald-600 text-white text-xs px-2 py-1 rounded transition-colors">복사하기</button>
-                        <div id="p2-text" class="text-sm whitespace-pre-wrap"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Practical 3: Outline -->
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <span class="bg-amber-600 text-white px-2 py-1 rounded text-xs">실습 3</span>
-                    <h3 class="font-bold text-xl">설교 설계 & 감동 예화</h3>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="grid grid-cols-1 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">우리 성도님들의 특징 (예: 60대 이상 농사짓는 분들)</label>
-                            <input type="text" id="s3-audience" value="평일 내내 일터에서 지친 50-70대 성도들" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">설교 주제 (핵심 메시지 한 줄)</label>
-                            <input type="text" id="s3-theme" value="예배의 은혜를 가지고 세상 속에서 빛으로 버티기" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                    </div>
-
-                    <div class="prompt-area" id="prompt-3">
-                        <button onclick="copyToClipboard('prompt-3')" class="absolute top-2 right-2 bg-gray-700 hover:bg-amber-600 text-white text-xs px-2 py-1 rounded transition-colors">복사하기</button>
-                        <div id="p3-text" class="text-sm whitespace-pre-wrap"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Practical 4: PPT/Slides (NEW) -->
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <span class="bg-purple-600 text-white px-2 py-1 rounded text-xs">실습 4</span>
-                    <h3 class="font-bold text-xl">예배용 PPT 및 슬라이드 자동 생성</h3>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 font-sans">
-                    <p class="text-sm font-bold text-gray-700 mb-4">원하는 디자인 스타일을 설정해 보세요:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div class="md:col-span-2">
-                            <label class="block text-xs text-gray-500 mb-1">PPT 제작용 설교 제목 및 요약</label>
-                            <input type="text" id="s4-topic" value="은혜의 예배를 딛고, 세상의 산 아래로 내려가 버티기" oninput="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">디자인 색상 테마</label>
-                            <select id="s4-theme" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
-                                <option value="신뢰감을 주는 깊은 청색(Navy)과 백색" selected>깊은 청색(Navy)과 백색</option>
-                                <option value="따뜻하고 은혜로운 세이지 그린과 부드러운 오프화이트">세이지 그린과 오프화이트</option>
-                                <option value="엄숙하고 전통적인 분위기의 차콜과 다크 버건디">차콜과 다크 버건디</option>
-                                <option value="현대적이고 깨끗한 느낌의 미니멀 블랙 앤 화이트">미니멀 블랙 앤 화이트</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">디자인 폰트 스타일</label>
-                            <select id="s4-font" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
-                                <option value="가독성이 극대화된 굵은 고딕(San-Serif) 계열" selected>가독성이 높은 고딕 계열</option>
-                                <option value="전통적이고 경건한 정통 명조(Serif) 계열">우아하고 경건한 명조 계열</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">슬라이드 구성 장수</label>
-                            <select id="s4-slides" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
-                                <option value="5장 내외 (핵심 요약 구성)">5장 내외 (핵심형)</option>
-                                <option value="7장 내외 (3대지 설교 전체 흐름)" selected>7장 내외 (표준형)</option>
-                                <option value="10장 내외 (상세 설명 및 성구 포함)">10장 내외 (상세형)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">원하는 출력 형식</label>
-                            <select id="s4-format" onchange="updatePrompts()" class="w-full px-3 py-2 border rounded-lg input-focus text-sm bg-white">
-                                <option value="PowerPoint VBA 코드" selected>PowerPoint VBA 코드 (1초 생성용)</option>
-                                <option value="Google Apps Script 코드">Google Slides용 Apps Script</option>
-                                <option value="슬라이드별 텍스트 및 디자인 상세 가이드북">구조화된 텍스트 가이드</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="prompt-area" id="prompt-4">
-                        <button onclick="copyToClipboard('prompt-4')" class="absolute top-2 right-2 bg-gray-700 hover:bg-purple-600 text-white text-xs px-2 py-1 rounded transition-colors">복사하기</button>
-                        <div id="p4-text" class="text-sm whitespace-pre-wrap"></div>
-                    </div>
-                </div>
+        <!-- 3단계 섹션 (시각적 안내) -->
+        <section class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+            <h2 class="text-xl font-bold text-emerald-600 mb-4">🌐 [3단계] 단 1원도 안 드는 우리 교회 홈페이지 전 세계 공개</h2>
+            <p class="text-gray-600 text-sm mb-4">돈을 내는 호스팅 대신, 완성된 <code>index.html</code> 파일을 마우스로 던져서 무료로 주소를 발급받는 과정입니다.</p>
+            
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm space-y-3">
+                <p><strong>1. 인터넷 주소창에 이동하기:</strong> <a href="https://app.netlify.com/drop" target="_blank" class="text-blue-600 underline font-semibold">app.netlify.com/drop (클릭하여 열기)</a>에 접속합니다.</p>
+                <p><strong>2. 폴더 드래그 앤 드롭:</strong> Claude가 완성해 준 코드를 저장한 <code>index.html</code> 파일이 들어있는 <strong>[폴더 전체]</strong>를 선택합니다.</p>
+                <p><strong>3. 마우스로 던지기:</strong> 화면 중앙의 큰 박스 영역 안으로 폴더를 마우스로 끌어다 놓습니다(Drop).</p>
+                <p><strong>4. 완료:</strong> 3초 뒤 상단에 생성되는 <code>https://이름.netlify.app</code> 주소가 우리 교회의 평생 무료 주소가 됩니다.</p>
             </div>
         </section>
 
     </main>
 
-    <footer class="mt-20 py-10 bg-gray-100 text-center text-gray-400 text-xs">
-        <p>© 2024 목회자 AI 동역자 워크숍 연구소</p>
-        <p class="mt-1">"주님의 말씀을 전하는 발걸음이 더 가벼워지길 축복합니다."</p>
+    <!-- 하단 카피라이트 -->
+    <footer class="text-center py-6 text-gray-400 text-xs border-t border-gray-200 mt-12">
+        &copy; 2026 AI 목회자 워크숍 교육 자료. All 소유권은 목사님들께 있습니다.
     </footer>
 
+    <!-- 클립보드 복사 자바스크립트 기능 -->
     <script>
-        // Tab Navigation Logic
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+        function copyPrompt(id, button) {
+            const copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // 모바일 대응
             
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById('btn-' + tabId).classList.add('active-tab');
-            
-            if(tabId === 'home') initChart();
-            window.scrollTo(0, 0);
+            navigator.clipboard.writeText(copyText.value)
+                .then(() => {
+                    // 복사 성공 시 버튼 시각 피드백 변화
+                    const originalText = button.innerText;
+                    button.innerText = "✓ 복사 완료!";
+                    button.classList.remove("bg-indigo-600", "hover:bg-indigo-700");
+                    button.classList.add("bg-emerald-600", "hover:bg-emerald-700");
+                    
+                    // 2초 뒤 원상복구
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.classList.remove("bg-emerald-600", "hover:bg-emerald-700");
+                        button.classList.add("bg-indigo-600", "hover:bg-indigo-700");
+                    }, 2000);
+                })
+                .catch(err => {
+                    alert("복사에 실패했습니다. 직접 드래그하여 복사해 주세요.");
+                });
         }
-
-        // Live Prompt Update Logic
-        function updatePrompts() {
-            // S1: Communication
-            const s1Name = document.getElementById('s1-name').value;
-            const s1Church = document.getElementById('s1-church').value;
-            const s1Context = document.getElementById('s1-context').value;
-            
-            document.getElementById('p1-text').innerText = 
-`[역할] 너는 성도를 깊이 사랑하는 따뜻한 담임목사야.
-[상황] 우리 교회 성도인 ${s1Name}님에게 카톡 문자를 보내려 해.
-[데이터] 소속: ${s1Church}, 형편: ${s1Context}
-[조건] 
-1. 친근한 어조, 이모티콘 사용. 
-2. 성도의 상황에 깊이 공감하고 축복할 것.
-3. 300자 내외로 따뜻하게 작성해줘.`;
-
-            // S2: Research
-            const s2Passage = document.getElementById('s2-passage').value;
-            document.getElementById('p2-text').innerText = 
-`[역할] 너는 역사적-문법적 해석에 능통한 복음주의 신학 교수야.
-[본문] ${s2Passage}
-[요청]
-1. 이 말씀의 시대적, 문화적 배경을 설명해줘.
-2. 핵심 원어(헬라어/히브리어) 중 영적으로 깊은 단어 하나를 주해해줘.
-3. 설교자가 빠지기 쉬운 해석적 오류를 짚어줘.`;
-
-            // S3: Outline
-            const s3Audience = document.getElementById('s3-audience').value;
-            const s3Theme = document.getElementById('s3-theme').value;
-            const s2PassageVal = document.getElementById('s2-passage').value;
-
-            document.getElementById('p3-text').innerText = 
-`[역할] 너는 성도의 아픔을 만지는 탁월한 설교학 교수야.
-[본문] ${s2PassageVal}
-[청중] ${s3Audience}
-[메시지] ${s3Theme}
-[요청]
-1. 감동적인 서론과 3대지 아웃라인을 짜줘.
-2. 각 대지마다 성도들이 삶에서 실천할 질문을 넣어줘.
-3. 한국적 정서가 담긴 따뜻한 일상 예화 한 가지를 창작해줘.`;
-
-            // S4: PPT/Slides (NEW)
-            const s4Topic = document.getElementById('s4-topic').value;
-            const s4Theme = document.getElementById('s4-theme').value;
-            const s4Font = document.getElementById('s4-font').value;
-            const s4Slides = document.getElementById('s4-slides').value;
-            const s4Format = document.getElementById('s4-format').value;
-
-            document.getElementById('p4-text').innerText = 
-`[역할] 너는 가독성이 뛰어나고 은혜로운 성전 슬라이드를 디자인하는 전문 예배 미디어 디자이너야.
-[목적] 목사님의 설교 구조와 아래 설정에 정확히 일치하는 [${s4Format}]을(를) 작성해서 설교 PPT 제작 시간을 완전히 단축시켜줘.
-
-[데이터 및 본문 정보]
-- 설교 본문: ${s2PassageVal}
-- 설교 주제 및 메시지: ${s4Topic}
-
-[디자인 템플릿 설정]
-- 색상 테마: ${s4Theme} (배경색과 글자색 매칭을 명확하게 지정해줘)
-- 폰트 조합: ${s4Font} (가장 잘 어울리는 기본 시스템 폰트로 매칭)
-- 분량: 총 ${s4Slides}
-
-[요청 요건]
-1. 각 슬라이드의 레이아웃(제목 슬라이드, 핵심 성구, 대지 요약, 결단 등)을 명확하게 구성해줘.
-2. 한 화면에 들어오는 텍스트는 3줄(혹은 핵심 어구 20단어) 이하로 줄여 성도들이 한눈에 볼 수 있는 가독성을 확보해줘.
-3. 만약 출력 형식이 'VBA' 또는 'Apps Script'라면, 코드를 그대로 복사해서 붙여넣었을 때 에러 없이 작동하고 지정한 색상 테마의 배경과 텍스트 상자가 자동으로 배치되는 완전한 실행 코드를 한눈에 알아보기 쉽게 작성해줘. 코드 말미에 실행하는 방법 가이드도 한 줄로 요약해줘.`;
-        }
-
-        // Clipboard Logic
-        function copyToClipboard(containerId) {
-            const text = document.getElementById(containerId).querySelector('div').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = document.getElementById(containerId).querySelector('button');
-                const originalText = btn.innerText;
-                btn.innerText = '복사 완료!';
-                btn.style.backgroundColor = '#10b981';
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.backgroundColor = '';
-                }, 2000);
-            });
-        }
-
-        // Chart Logic
-        let chartInstance = null;
-        function initChart() {
-            const ctx = document.getElementById('energyChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['소통 실습', '본문 연구', '설교 설계', 'PPT 시각화'],
-                    datasets: [{
-                        data: [25, 25, 25, 25],
-                        backgroundColor: ['#4f46e5', '#10b981', '#f59e0b', '#8b5cf6'],
-                        borderWidth: 0,
-                        hoverOffset: 15
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
-                    },
-                    cutout: '65%'
-                }
-            });
-        }
-
-        // Start
-        window.onload = () => {
-            updatePrompts();
-            initChart();
-        };
     </script>
 </body>
 </html>
